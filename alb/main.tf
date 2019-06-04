@@ -21,3 +21,17 @@ resource "aws_alb_listener" "front_end" {
     type             = "forward"
   }
 }
+
+resource "aws_alb_listener" "front_end_tls" {
+  load_balancer_arn = "${aws_alb.main.id}"
+  port              = "443"
+  protocol          = "HTTPS"
+
+  ssl_policy = "ELBSecurityPolicy-2015-05"
+  certificate_arn = "${var.certificate_arn}"
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.main.id}"
+    type             = "forward"
+  }
+}

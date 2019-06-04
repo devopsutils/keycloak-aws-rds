@@ -16,12 +16,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-# resource "aws_subnet" "public" {
-#   cidr_block        = "${var.public_subnet_cidr_block}"
-#   availability_zone = "${data.aws_availability_zones.available.names[0]}"
-#   vpc_id            = "${aws_vpc.primary_vpc.id}"
-# }
-
 resource "aws_subnet" "private" {
   cidr_block        = "${var.private_subnet_cidr_block}"
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
@@ -60,6 +54,13 @@ resource "aws_security_group" "alb_sg" {
     protocol    = "tcp"
     from_port   = 80
     to_port     = 80
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
     cidr_blocks = ["0.0.0.0/0"]
   }
 

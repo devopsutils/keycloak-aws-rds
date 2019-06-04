@@ -28,3 +28,5 @@ variable "vpc_id" {}
 variable "subnet_ids" {}
 
 variable "security_groups" {}
+
+variable "certificate_arn" {}
