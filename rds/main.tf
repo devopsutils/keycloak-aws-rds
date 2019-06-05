@@ -10,17 +10,8 @@ resource "aws_security_group" "keycloakdb_sg" {
         from_port = 5432
         to_port = 5432
         protocol = "tcp"
-        # cidr_blocks = ["${var.public_subnet_cidr}"]
         security_groups = ["${var.instance_security_group}"]
-        # Maybe change to allow a security group instead of CIDR
     }
-
-    # egress {
-    #     from_port = 80
-    #     to_port = 80
-    #     protocol = "tcp"
-    #     cidr_blocks = ["0.0.0.0/0"]
-    # }
 
     egress {
         from_port = 443
