@@ -11,16 +11,16 @@ resource "aws_alb" "main" {
   security_groups = "${var.security_groups}"
 }
 
-resource "aws_alb_listener" "front_end" {
-  load_balancer_arn = "${aws_alb.main.id}"
-  port              = "${var.alb_port}"
-  protocol          = "${var.alb_protocol}"
+# resource "aws_alb_listener" "front_end" {
+#   load_balancer_arn = "${aws_alb.main.id}"
+#   port              = "${var.alb_port}"
+#   protocol          = "${var.alb_protocol}"
 
-  default_action {
-    target_group_arn = "${aws_alb_target_group.main.id}"
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = "${aws_alb_target_group.main.id}"
+#     type             = "forward"
+#   }
+# }
 
 resource "aws_alb_listener" "front_end_tls" {
   load_balancer_arn = "${aws_alb.main.id}"

@@ -4,9 +4,7 @@ A sample Terraform setup for creating a Keycloak ECS instance behind an ALB
 
 # What
 
-This project demonstrates how to launch an instance of [KeyCloak](https://keycloak.org) with a PostgreSQL [RDS](https://aws.amazon.com/rds/) backend within your AWS [VPC](https://aws.amazon.com/vpc/) using [Terraform](https://terraform.io).  These modules will deploy KeyCloak within a Docker container deployed on EC2, accessible behind an [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html).  A DNS record for the instance will also be created using [Route 53](https://aws.amazon.com/route53/).
-
-**Note:**  If for some reason  you do not want Route 53 support, feel free to comment out the ```dns``` module within the ```main.tf``` file.  This is useful, for instance, if you want to manage DNS manually.
+This project demonstrates how to launch an instance of [KeyCloak](https://keycloak.org) with a PostgreSQL [RDS](https://aws.amazon.com/rds/) backend within your AWS [VPC](https://aws.amazon.com/vpc/) using [Terraform](https://terraform.io).  These modules will deploy KeyCloak within a Docker container deployed on EC2, accessible behind an [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html).  A DNS record for the instance will also be created using [Route 53](https://aws.amazon.com/route53/) and a corresponding certificate for the ALB will be created and applied using [ACM](https://aws.amazon.com/certificate-manager/).
 
 # Getting Started
 
@@ -36,17 +34,17 @@ Once your Terraform build completes, you will see outputs showing the ALB's DNS 
 
 A few caveats, particularly related to security...
 
-#### RDS Credentials
+#### Route 53 and DNS
 
-Due to shortcomings in the way that the KeyCloak Docker image and underlying application server work, RDS credentials are provided as part of the ECS task definition and made available to KeyClok as environment variables.  This is less than ideal, but I'm not knowledgeable enough on Terraform to come up with a better way.  If you have one, feel free to raise an issue or submit a pull request!
-
-#### TLS Certificates
-
-This deployment should be considered a proof-of-concept, and is _not_ ready for production deployment, notably due to the lack of TLS protection on the ALB endpoint.  A future revision of this code may include support for an ALB certificate using Amazon Certificate Manager.  For right now, though, this is left unimplemented.
+This deployment assumes that you have an existing Route 53 zone setup for your domain.  The DNS record for KeyCloak will created in this zone during ```apply```, but the zone itself must exist beforehand.
 
 #### Clustering
 
 This deployment -- while behind an ALB -- only results in a single KeyCloak instance.  I'm currently working on a separate project that will demonstrate how to deploy a KeyCloak cluster on AWS using Terraform.  Stay tuned!
+
+#### RDS Credentials
+
+Due to shortcomings in the way that the KeyCloak Docker image and underlying application server work, RDS credentials are provided as part of the ECS task definition and made available to KeyClok as environment variables.  This is less than ideal, but I'm not knowledgeable enough on Terraform to come up with a better way.  If you have one, feel free to raise an issue or submit a pull request!
 
 #### RDS Database Engine
 

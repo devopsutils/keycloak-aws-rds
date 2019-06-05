@@ -22,6 +22,6 @@ output "alb_target_group_arn" {
     value = "${aws_alb_target_group.main.id}"
 }
 
-output "alb_listener_front_end" {
-    value = "${aws_alb_listener.front_end.id}"
+output "alb_listener_front_end_tls" {
+    value = "${aws_alb_listener.front_end_tls.id}"
 }

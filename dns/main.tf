@@ -1,9 +1,4 @@
-# resource "aws_route53_zone" "main" {
-#   name = "${var.zone_name}"
-# }
-
 data "aws_route53_zone" "main" {
-  # name = "${aws_route53_zone.main.name}"
   name = "${var.zone_name}"
   private_zone = false
 }
@@ -15,18 +10,6 @@ resource "aws_route53_record" "cname" {
     ttl = "60"
     records = ["${var.alb_dns_name}"]
 }
-
-# resource "aws_route53_record" "apex" {
-#   zone_id = "${data.aws_route53_zone.main.zone_id}"
-#   name    = "${var.zone_name}"
-#   type    = "A"
-
-#   alias {
-#     name                   = "${var.alb_dns_name}"
-#     zone_id                = "${var.alb_zone_id}"
-#     evaluate_target_health = true
-#   }
-# }
 
 resource "aws_acm_certificate" "main" {
   domain_name = "${var.public_dns_name}"

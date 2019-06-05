@@ -65,7 +65,7 @@ module "ecs" {
   alb_target_group_arn = "${module.alb.alb_target_group_arn}"
   ecs_cluster_name = "${var.ecs_cluster_name}"
   ecs_service_iam_role_policy = "${module.iam.ecs_service_iam_role_policy}"
-  alb_listener_front_end = "${module.alb.alb_listener_front_end}"
+  alb_listener_front_end = "${module.alb.alb_listener_front_end_tls}"
   
   database_hostname = "${module.rds.database_hostname}"
   database_port = "${module.rds.database_port}"
