@@ -40,7 +40,7 @@ This deployment assumes that you have an existing Route 53 zone setup for your d
 
 #### Clustering
 
-This deployment -- while behind an ALB -- only results in a single KeyCloak instance.  I'm currently working on a separate project that will demonstrate how to deploy a KeyCloak cluster on AWS using Terraform.  Stay tuned!
+This deployment -- while behind an ALB -- only results in a single KeyCloak instance.  If you'd like to see how to deploy a full auto-scaling KeyCloak cluster with the same RDS and ALB support, take a look at [this repo](https://github.com/sdnakhla/keycloak-cluster-aws-rds).
 
 #### RDS Credentials
 
